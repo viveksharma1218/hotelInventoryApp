@@ -12,3 +12,33 @@
 
 <!--Use event binding-->
 <button (click)="toggle()">toggle</button>
+<!--Using ngif with optional chaining -->
+<!-- ngIf checks whether condition true or false, If true than content is available otherwise not-->
+<div *ngIf="rooms?.availableRooms">Available Rooms</div>
+<!--if availableRooms not available than show this-->
+<!-- double Question mark is working as OR -->
+{{rooms?.availableRooms ?? 'No Room Available'}}
+
+<table>
+    <tr>
+        <th>Index</th>
+        <th>Even / Odd</th>
+        <th>room number</th>
+        <th>room type</th>
+        <th>room amenities</th>
+        <th>room price</th>
+        <th>Check In time</th>
+        <th>Check out time</th>
+    </tr>
+    <!--getting Array data with ngfor and ngfor have even ,odd,index data also-->
+    <tr *ngFor="let data of RoomList; let e=even; let o = odd; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{e?'odd': 'even'}}</td> <!--Array starts with O-->
+        <td>{{data.roomNumber}}</td>
+        <td>{{data.roomType}}</td>
+        <td>{{data.amenities}}</td>
+        <td>{{data.price}}</td>
+        <td>{{data.checkInTime}}</td>
+        <td>{{data.checkOutTime}}</td>
+    </tr>
+</table>
