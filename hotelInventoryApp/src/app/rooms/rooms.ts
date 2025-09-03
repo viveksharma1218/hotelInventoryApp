@@ -7,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrl: './rooms.scss'
 })
 export class Rooms {
-
+  hotelname:string = 'Taj Hotel';
+  numberOfRooms:number = 50;
+  hideRooms:boolean = true;
+  constructor(){}
+  toggle(){
+    this.hideRooms = !this.hideRooms;
+  }
 }

@@ -1,1 +1,14 @@
 <p>rooms works!</p>
+<!--How to use data binding-->
+<p>this is interpolation binding to access .ts file data. just put 
+    variable name inside double curly bracket:{{hotelname}}</p>
+<!-- this is property binding method-->
+<!--Use any valid property on that particular element-->
+
+<div [hidden]="hideRooms">
+    <p>Number of Rooms</p>
+    <div [innerText]="numberOfRooms"></div>
+</div>
+
+<!--Use event binding-->
+<button (click)="toggle()">toggle</button>
