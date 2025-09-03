@@ -1,9 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-
+import { Rooms } from './rooms/rooms';
 @Component({
-  selector: 'app-root',
-  imports: [RouterOutlet],
+  selector: 'hinv-root',
+  imports: [RouterOutlet,Rooms],
   templateUrl: './app.html',
   //template:`<h1>Hello world from inline template</h1>
   //<h2>to make multiline use tick otherwise single quote</h2>`,
