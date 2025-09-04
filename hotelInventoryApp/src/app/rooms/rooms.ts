@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { room, roomList } from './room';
 import { CommonModule, NgIf } from "@angular/common";
+import { RoomList } from "./room-list/room-list";
 
 @Component({
   selector: 'hinv-rooms',
-  imports: [CommonModule],
+  imports: [CommonModule, RoomList],
   templateUrl: './rooms.html',
   styleUrl: './rooms.scss'
 })
-export class Rooms {
+export class Rooms implements OnInit {
   hotelname:string = 'Taj Hotel';
   numberOfRooms:number = 50;
   public hideRooms:boolean = false;
@@ -21,7 +22,9 @@ export class Rooms {
     availableRooms :100,
     //bookedRooms : 10,
   }
-  RoomList:roomList[] = [{
+  RoomList:roomList[] = []
+  ngOnInit () :void{
+    this.RoomList= [{
     roomNumber:1,
     roomType : 'Private',
     amenities : 'AC , Wifi , Free Breakfast, Free lunch, Free Dinner',
@@ -48,4 +51,5 @@ export class Rooms {
     checkOutTime : new Date('11-11-2024'),
     rating:4.2234234
   }]
+  }
 }
