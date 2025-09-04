@@ -6,12 +6,12 @@
 <!--Use any valid property on that particular element-->
 
 <div [hidden]="hideRooms">
-    <p>Number of Rooms</p>
+    <p [ngStyle]="{'color': rooms!.availableRooms ? 'green' : 'pink'}">Number of Rooms</p>
     <div [innerText]="numberOfRooms"></div>
 </div>
-
-<!--Use event binding-->
 <button (click)="toggle()">toggle</button>
+<!--Use event binding-->
+
 <!--Using ngif with optional chaining -->
 <!-- ngIf checks whether condition true or false, If true than content is available otherwise not-->
 <div *ngIf="rooms?.availableRooms">Available Rooms</div>
@@ -31,7 +31,8 @@
         <th>Check out time</th>
     </tr>
     <!--getting Array data with ngfor and ngfor have even ,odd,index data also-->
-    <tr *ngFor="let data of RoomList; let e=even; let o = odd; let i = index">
+    <tr *ngFor="let data of RoomList; let e=even; let o = odd; let i = index"
+        [ngClass]="e ? 'even' : 'odd'">
         <td>{{i + 1}}</td>
         <td>{{e?'odd': 'even'}}</td> <!--Array starts with O-->
         <td>{{data.roomNumber}}</td>

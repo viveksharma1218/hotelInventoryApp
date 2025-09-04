@@ -1,2 +1,10 @@
 <h1>hello world</h1>
 <hinv-rooms></hinv-rooms>
+@switch (role) {
+    @case ('Admin') {
+        <p>Welcome Admin</p>
+    }
+    @case ('User') {
+        <p>Welcome User</p>
+    }
+}

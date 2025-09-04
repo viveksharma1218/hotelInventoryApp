@@ -11,7 +11,7 @@ import { CommonModule, NgIf } from "@angular/common";
 export class Rooms {
   hotelname:string = 'Taj Hotel';
   numberOfRooms:number = 50;
-  hideRooms:boolean = true;
+  public hideRooms:boolean = false;
   constructor(){}
   toggle(){
     this.hideRooms = !this.hideRooms;

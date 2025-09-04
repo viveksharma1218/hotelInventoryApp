@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { Rooms } from './rooms/rooms';
 @Component({
   selector: 'hinv-root',
-  imports: [RouterOutlet,Rooms],
+  imports: [RouterOutlet, Rooms],
   templateUrl: './app.html',
   //template:`<h1>Hello world from inline template</h1>
   //<h2>to make multiline use tick otherwise single quote</h2>`,
@@ -13,4 +13,5 @@ import { Rooms } from './rooms/rooms';
 })
 export class App {
   protected readonly title = signal('hotelInventoryApp');
+  role = 'Admin';
 }
