@@ -9,5 +9,6 @@ export interface roomList{
     amenities:string,
     price:number,
     checkInTime:Date,
-    checkOutTime:Date
+    checkOutTime:Date,
+    rating:number
 }

@@ -29,17 +29,19 @@
         <th>room price</th>
         <th>Check In time</th>
         <th>Check out time</th>
+        <th>Rating</th>
     </tr>
     <!--getting Array data with ngfor and ngfor have even ,odd,index data also-->
-    <tr *ngFor="let data of RoomList; let e=even; let o = odd; let i = index"
+    <tr *ngFor="let data of RoomList | slice : 0:3; let e=even; let o = odd; let i = index"
         [ngClass]="e ? 'even' : 'odd'">
         <td>{{i + 1}}</td>
         <td>{{e?'odd': 'even'}}</td> <!--Array starts with O-->
         <td>{{data.roomNumber}}</td>
-        <td>{{data.roomType}}</td>
-        <td>{{data.amenities}}</td>
-        <td>{{data.price}}</td>
-        <td>{{data.checkInTime}}</td>
-        <td>{{data.checkOutTime}}</td>
+        <td>{{data.roomType | lowercase}}</td>
+        <td>{{data.amenities | titlecase}}</td>
+        <td>{{data.price | currency : 'INR'}}</td>
+        <td>{{data.checkInTime | date}}</td>  <!--Pipe tranforming the date format-->
+        <td>{{data.checkOutTime | date : 'medium'}}</td> <!--default format is short-->
+        <td>{{data.rating | number : '1.2-2'}}</td>
     </tr>
 </table>

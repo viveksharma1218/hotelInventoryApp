@@ -26,23 +26,26 @@ export class Rooms {
     roomType : 'Private',
     amenities : 'AC , Wifi , Free Breakfast, Free lunch, Free Dinner',
     price : 10000,
-    checkInTime : new Date(11-11-2020),
-    checkOutTime : new Date(12-12-2020)
+    checkInTime : new Date('11-11-2024'),
+    checkOutTime : new Date('11-11-2024'),
+    rating:4.5324234
   },
   {
     roomNumber:2,
     roomType : 'Deluxe',
     amenities : 'AC , Wifi , Free Breakfast, Free Lunch',
     price : 5000,
-    checkInTime : new Date(11-11-2020),
-    checkOutTime : new Date(12-12-2020)
+    checkInTime : new Date('11-11-2024'),
+    checkOutTime : new Date('11-11-2024'),
+    rating:4.334234234
   },
   {
     roomNumber:3,
     roomType : 'Standard',
     amenities : 'AC , Wifi , Free Breakfast',
     price : 2000,
-    checkInTime : new Date(11-11-2020),
-    checkOutTime : new Date(12-12-2020)
+    checkInTime : new Date('11-11-2024'),
+    checkOutTime : new Date('11-11-2024'),
+    rating:4.2234234
   }]
 }
