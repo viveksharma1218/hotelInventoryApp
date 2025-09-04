@@ -13,6 +13,8 @@ export class Rooms implements OnInit {
   hotelname:string = 'Taj Hotel';
   numberOfRooms:number = 50;
   public hideRooms:boolean = false;
+  
+  yourRoom:roomList | undefined;
   constructor(){}
   toggle(){
     this.hideRooms = !this.hideRooms;
@@ -51,5 +53,9 @@ export class Rooms implements OnInit {
     checkOutTime : new Date('11-11-2024'),
     rating:4.2234234
   }]
+  }
+  selectRoom(data:roomList){
+    console.log(data);
+    this.yourRoom = data;
   }
 }

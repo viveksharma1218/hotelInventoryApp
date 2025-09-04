@@ -19,4 +19,7 @@
 <!-- double Question mark is working as OR -->
 {{rooms?.availableRooms ?? 'No Room Available'}}
 
-<hinv-room-list [rooms] = "RoomList"></hinv-room-list>
+<hinv-room-list [rooms] = "RoomList"
+(selectedRoom)="selectRoom($event)"></hinv-room-list>
+<p>your room</p>
+<div *ngIf="yourRoom">{{yourRoom | json}}</div>

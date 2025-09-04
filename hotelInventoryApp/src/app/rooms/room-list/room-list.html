@@ -1,5 +1,6 @@
 <p>room-list </p>
-<table class="table">
+<table class="table table-dark table-hover"> <!--these classes are for bootstrap styles-->
+   <thead>
     <tr>
         <th>Index</th>
         <th>Even / Odd</th>
@@ -10,7 +11,10 @@
         <th>Check In time</th>
         <th>Check out time</th>
         <th>Rating</th>
+        <th>Select Room</th>
     </tr>
+    </thead>
+     <tbody>
     <!--getting Array data with ngfor and ngfor have even ,odd,index data also-->
     <tr *ngFor="let data of rooms | slice : 0:3; let e=even; let o = odd; let i = index"
         [ngClass]="e ? 'even' : 'odd'">
@@ -23,5 +27,12 @@
         <td>{{data.checkInTime | date}}</td>  <!--Pipe tranforming the date format-->
         <td>{{data.checkOutTime | date : 'medium'}}</td> <!--default format is short-->
         <td>{{data.rating | number : '1.2-2'}}</td>
+        <td>
+            <button class="btn btn-primary" (click)="selectRoom(data)">
+            <!--data is object above created which has one room info-->
+                Select
+            </button>
+        </td>
     </tr>
+    </tbody>
 </table>

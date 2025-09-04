@@ -1,4 +1,4 @@
-import { Component, Input, input } from '@angular/core';
+import { Component, Input,Output,EventEmitter } from '@angular/core';
 import { roomList } from '../room';
 import { CommonModule } from '@angular/common';
 
@@ -12,4 +12,9 @@ import { CommonModule } from '@angular/common';
 export class RoomList {
   // now rooms property can be used to send data
   @Input() rooms: roomList[] = [];
+  @Output() selectedRoom = new EventEmitter<roomList>();
+  
+  selectRoom(data:roomList){
+    this.selectedRoom.emit(data)
+  }
 }
