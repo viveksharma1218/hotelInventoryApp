@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,ChangeDetectionStrategy } from '@angular/core';
 import { room, roomList } from './room';
 import { CommonModule, NgIf } from "@angular/common";
 import { RoomList } from "./room-list/room-list";
@@ -7,7 +7,8 @@ import { RoomList } from "./room-list/room-list";
   selector: 'hinv-rooms',
   imports: [CommonModule, RoomList],
   templateUrl: './rooms.html',
-  styleUrl: './rooms.scss'
+  styleUrl: './rooms.scss',
+  changeDetection:ChangeDetectionStrategy.OnPush,
 })
 export class Rooms implements OnInit {
   hotelname:string = 'Taj Hotel';
@@ -57,5 +58,19 @@ export class Rooms implements OnInit {
   selectRoom(data:roomList){
     console.log(data);
     this.yourRoom = data;
+  }
+
+  addRoom(){
+    const room : roomList = {
+      roomNumber:4,
+      roomType : 'Private',
+      amenities : 'AC , Wifi , Free Breakfast, Free lunch, Free Dinner',
+      price : 2500,
+      checkInTime : new Date('11-11-2024'),
+      checkOutTime : new Date('11-11-2024'),
+      rating:3.5324234
+    };
+    //this.RoomList.push(room); // works before change detection strategy on push
+    this.RoomList = [...this.RoomList,room]; // not modifying creating new Array Using old and new data.
   }
 }

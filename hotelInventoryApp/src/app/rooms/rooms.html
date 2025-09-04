@@ -18,7 +18,9 @@
 <!--if availableRooms not available than show this-->
 <!-- double Question mark is working as OR -->
 {{rooms?.availableRooms ?? 'No Room Available'}}
-
+<div>
+    <button (click)="addRoom()">Add Room</button>
+</div>
 <hinv-room-list [rooms] = "RoomList"
 (selectedRoom)="selectRoom($event)"></hinv-room-list>
 <p>your room</p>

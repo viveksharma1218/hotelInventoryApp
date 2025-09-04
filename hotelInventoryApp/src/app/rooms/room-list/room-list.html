@@ -16,7 +16,7 @@
     </thead>
      <tbody>
     <!--getting Array data with ngfor and ngfor have even ,odd,index data also-->
-    <tr *ngFor="let data of rooms | slice : 0:3; let e=even; let o = odd; let i = index"
+    <tr *ngFor="let data of rooms | slice : 0:30; let e=even; let o = odd; let i = index"
         [ngClass]="e ? 'even' : 'odd'">
         <td>{{i + 1}}</td>
         <td>{{e?'odd': 'even'}}</td> <!--Array starts with O-->
