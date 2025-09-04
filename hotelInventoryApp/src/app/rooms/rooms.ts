@@ -14,11 +14,13 @@ export class Rooms implements OnInit {
   hotelname:string = 'Taj Hotel';
   numberOfRooms:number = 50;
   public hideRooms:boolean = false;
-  
+  Title:string = 'Room List(old title)';
   yourRoom:roomList | undefined;
   constructor(){}
   toggle(){
     this.hideRooms = !this.hideRooms;
+    this.Title = 'Room List (new title)';
+    
   }
   rooms:room | undefined | null= {
     //totalRooms : 500,
