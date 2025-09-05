@@ -1,4 +1,4 @@
-import { Component,OnInit,ChangeDetectionStrategy } from '@angular/core';
+import { Component,OnInit,ChangeDetectionStrategy, DoCheck } from '@angular/core';
 import { room, roomList } from './room';
 import { CommonModule, NgIf } from "@angular/common";
 import { RoomList } from "./room-list/room-list";
@@ -10,7 +10,7 @@ import { RoomList } from "./room-list/room-list";
   styleUrl: './rooms.scss',
   changeDetection:ChangeDetectionStrategy.OnPush,
 })
-export class Rooms implements OnInit {
+export class Rooms implements OnInit , DoCheck{
   hotelname:string = 'Taj Hotel';
   numberOfRooms:number = 50;
   public hideRooms:boolean = false;
@@ -74,5 +74,8 @@ export class Rooms implements OnInit {
     };
     //this.RoomList.push(room); // works before change detection strategy on push
     this.RoomList = [...this.RoomList,room]; // not modifying creating new Array Using old and new data.
+  }
+  ngDoCheck(): void {
+      console.log('this is ngDoCheck')
   }
 }
