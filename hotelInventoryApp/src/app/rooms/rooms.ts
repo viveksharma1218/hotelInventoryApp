@@ -1,22 +1,26 @@
-import { Component,OnInit,ChangeDetectionStrategy, DoCheck } from '@angular/core';
+import { Component,OnInit,ChangeDetectionStrategy, DoCheck, viewChild, AfterViewInit,ChangeDetectorRef } from '@angular/core';
 import { room, roomList } from './room';
 import { CommonModule, NgIf } from "@angular/common";
 import { RoomList } from "./room-list/room-list";
+import { Header } from '../header/header';
+
 
 @Component({
   selector: 'hinv-rooms',
-  imports: [CommonModule, RoomList],
+  imports: [CommonModule, RoomList,Header],
   templateUrl: './rooms.html',
   styleUrl: './rooms.scss',
   changeDetection:ChangeDetectionStrategy.OnPush,
 })
-export class Rooms implements OnInit , DoCheck{
+export class Rooms implements OnInit , DoCheck, AfterViewInit{
   hotelname:string = 'Taj Hotel';
   numberOfRooms:number = 50;
   public hideRooms:boolean = false;
   Title:string = 'Room List(old title)';
   yourRoom:roomList | undefined;
-  constructor(){}
+  // new viewChild() syntax using as signal query
+  headerRef = viewChild(Header)   //when you use this headerRef use as a function- this.headerRef()
+  constructor(private cdr: ChangeDetectorRef){}
   toggle(){
     this.hideRooms = !this.hideRooms;
     this.Title = 'Room List (new title)';
@@ -77,5 +81,13 @@ export class Rooms implements OnInit , DoCheck{
   }
   ngDoCheck(): void {
       console.log('this is ngDoCheck')
+  }
+  //@viewChild(Header) headerRef!: Header;
+  ngAfterViewInit(): void {
+      const headerComponent = this.headerRef();  // Use headerRef as a Method;
+      console.log(headerComponent); 
+      headerComponent!.title = 'this is new title';
+      // we will manually start change detection for child component to update to title property
+      this.cdr.detectChanges();
   }
 }
