@@ -1,9 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { AfterViewInit, Component, signal, ViewChild, ViewContainerRef } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Rooms } from './rooms/rooms';
+
 @Component({
   selector: 'hinv-root',
-  imports: [RouterOutlet, Rooms],
+  imports: [],
   templateUrl: './app.html',
   //template:`<h1>Hello world from inline template</h1>
   //<h2>to make multiline use tick otherwise single quote</h2>`,
@@ -11,7 +12,12 @@ import { Rooms } from './rooms/rooms';
   styleUrl: './app.scss',
   
 })
-export class App {
+export class App implements AfterViewInit {
   protected readonly title = signal('hotelInventoryApp');
   role = 'Admin';
+  @ViewChild('user', { read: ViewContainerRef })
+  userContainer!: ViewContainerRef;
+  ngAfterViewInit(): void {
+      const componentRef = this.userContainer.createComponent(Rooms)
+  }
 }
