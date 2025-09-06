@@ -1,4 +1,5 @@
-import { Component,OnInit,ChangeDetectionStrategy, DoCheck, viewChild, AfterViewInit,ChangeDetectorRef } from '@angular/core';
+import { Component,OnInit,ChangeDetectionStrategy, DoCheck, ViewChild,ViewChildren, AfterViewInit,
+  ChangeDetectorRef, QueryList } from '@angular/core';
 import { room, roomList } from './room';
 import { CommonModule, NgIf } from "@angular/common";
 import { RoomList } from "./room-list/room-list";
@@ -19,7 +20,7 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit{
   Title:string = 'Room List(old title)';
   yourRoom:roomList | undefined;
   // new viewChild() syntax using as signal query
-  headerRef = viewChild(Header)   //when you use this headerRef use as a function- this.headerRef()
+  //headerRef = viewChild(Header);   //when you use this headerRef use as a function- this.headerRef()
   constructor(private cdr: ChangeDetectorRef){}
   toggle(){
     this.hideRooms = !this.hideRooms;
@@ -82,12 +83,21 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit{
   ngDoCheck(): void {
       console.log('this is ngDoCheck')
   }
-  //@viewChild(Header) headerRef!: Header;
+  @ViewChild(Header) headerComponent!: Header;
+  @ViewChildren(Header) headerChildrenComponent! : QueryList<Header>;
   ngAfterViewInit(): void {
-      const headerComponent = this.headerRef();  // Use headerRef as a Method;
-      console.log(headerComponent); 
-      headerComponent!.title = 'this is new title';
+      //const headerComponent = this.headerRef();  // Use headerRef as a Method;
+      this.headerComponent.title = 'this is new title';
+      console.log(this.headerComponent); 
+      console.log(this.headerChildrenComponent);
+      // ViewChildren has access to all instances with last property we are changing title of last instance
+      this.headerChildrenComponent.last.title = 'last title'; 
+      //headerComponent!.title = 'this is new title';
       // we will manually start change detection for child component to update to title property
-      this.cdr.detectChanges();
+      this.cdr.detectChanges()
+      
+      // Force change detection for the specific component
+      //headerComponent.changeDetectorRef.detectChanges();
+      //this.headerComponent.changeDetectorRef.detectChanges();
   }
 }
