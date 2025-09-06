@@ -27,6 +27,6 @@
     <button (click)="addRoom()">Add Room</button>
 </div>
 <hinv-room-list [rooms] = "RoomList" [title]="Title"
-(selectedRoom)="selectRoom($event)"></hinv-room-list>
+(selectedRoom)="selectRoom($event)" *ngIf="hideRooms"></hinv-room-list>
 <p>your room</p>
 <div *ngIf="yourRoom">{{yourRoom | json}}</div>

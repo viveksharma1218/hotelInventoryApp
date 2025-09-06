@@ -1,4 +1,4 @@
-import { Component, Input,Output,EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input,Output,EventEmitter, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { roomList } from '../room';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './room-list.html',
   styleUrl: './room-list.scss'
 })
-export class RoomList implements OnChanges {
+export class RoomList implements OnChanges, OnDestroy {
   // now rooms property can be used to send data
   @Input() rooms: roomList[] = [];
   @Output() selectedRoom = new EventEmitter<roomList>();
@@ -23,5 +23,8 @@ export class RoomList implements OnChanges {
       if(changes['title']){
         this.title = changes['title'].currentValue.toUpperCase();
       }
+  }
+  ngOnDestroy(): void {
+      console.log('On Destroy is called');
   }
 }

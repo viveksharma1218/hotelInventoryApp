@@ -1,5 +1,6 @@
 import { Component,OnInit,ChangeDetectionStrategy, DoCheck, ViewChild,ViewChildren, AfterViewInit,
-  ChangeDetectorRef, QueryList } from '@angular/core';
+  ChangeDetectorRef, QueryList, 
+  OnDestroy} from '@angular/core';
 import { room, roomList } from './room';
 import { CommonModule, NgIf } from "@angular/common";
 import { RoomList } from "./room-list/room-list";
