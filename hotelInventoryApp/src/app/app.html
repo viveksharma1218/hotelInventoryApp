@@ -1,5 +1,15 @@
 
-<hinv-rooms></hinv-rooms>
+<!-- <hinv-rooms>
+    <p>no use</p>
+</hinv-rooms> -->
+<!--this container is responsible to load data in order-->
+<hinv-container>
+   <!--<p>this only works with ng content</p>--> 
+   <hinv-rooms></hinv-rooms>
+   <hinv-employee></hinv-employee>
+   <hinv-header></hinv-header>
+   <!--this order is different than saved in containerComponent but this data loading according to <ng-content>-->
+</hinv-container>
 <!--Let's dynamically load this component-->
 <!--<ng-template #user></ng-template>-->
 @switch (role) {
