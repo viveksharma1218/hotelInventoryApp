@@ -32,8 +32,12 @@ export class RoomService {
       checkOutTime : new Date('11-11-2024'),
       rating:4.2234234
     }];
-
+    constructor(){
+      // this will help us to know how many instance are created of this service
+      console.log('room service initialized');
+    }
     getRooms(){
       return this.roomList;
+      
     }
 }
