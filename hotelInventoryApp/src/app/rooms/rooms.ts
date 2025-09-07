@@ -5,6 +5,7 @@ import { room, roomList } from './room';
 import { CommonModule, NgIf } from "@angular/common";
 import { RoomList } from "./room-list/room-list";
 import { Header } from '../header/header';
+import { RoomService } from './room-service/rooms';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit{
   yourRoom:roomList | undefined;
   // new viewChild() syntax using as signal query
   //headerRef = viewChild(Header);   //when you use this headerRef use as a function- this.headerRef()
-  constructor(private cdr: ChangeDetectorRef){}
+  constructor(private cdr: ChangeDetectorRef, private roomService:RoomService){}
   toggle(){
     this.hideRooms = !this.hideRooms;
     this.Title = 'Room List (new title)';
@@ -35,33 +36,7 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit{
   }
   RoomList:roomList[] = []
   ngOnInit () :void{
-    this.RoomList= [{
-    roomNumber:1,
-    roomType : 'Private',
-    amenities : 'AC , Wifi , Free Breakfast, Free lunch, Free Dinner',
-    price : 10000,
-    checkInTime : new Date('11-11-2024'),
-    checkOutTime : new Date('11-11-2024'),
-    rating:4.5324234
-  },
-  {
-    roomNumber:2,
-    roomType : 'Deluxe',
-    amenities : 'AC , Wifi , Free Breakfast, Free Lunch',
-    price : 5000,
-    checkInTime : new Date('11-11-2024'),
-    checkOutTime : new Date('11-11-2024'),
-    rating:4.334234234
-  },
-  {
-    roomNumber:3,
-    roomType : 'Standard',
-    amenities : 'AC , Wifi , Free Breakfast',
-    price : 2000,
-    checkInTime : new Date('11-11-2024'),
-    checkOutTime : new Date('11-11-2024'),
-    rating:4.2234234
-  }]
+    this.RoomList = this.roomService.getRooms();
   }
   selectRoom(data:roomList){
     console.log(data);
