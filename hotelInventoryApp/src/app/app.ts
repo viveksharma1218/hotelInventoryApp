@@ -1,9 +1,10 @@
-import { AfterViewInit,OnInit, Component, ElementRef, signal, ViewChild, ViewContainerRef,ChangeDetectorRef } from '@angular/core';
+import { AfterViewInit,OnInit, Component, ElementRef, signal, ViewChild, ViewContainerRef,ChangeDetectorRef, Inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Rooms } from './rooms/rooms';
 import { Container } from './container/container';
 import { Employee } from "./employee/employee";
 import { Header } from "./header/header";
+import { localStorageToken } from './localStorage.token';
 
 @Component({
   selector: 'hinv-root',
@@ -23,6 +24,10 @@ export class App  {
   //ngAfterViewInit(): void {
   //    const componentRef = this.userContainer.createComponent(Rooms)
   //}
-  constructor(private cdr: ChangeDetectorRef){}
-
+  constructor(private cdr: ChangeDetectorRef, 
+    @Inject(localStorageToken) private localStorage:Storage){}
+  
+    ngOnInit(){
+      this.localStorage.setItem('hotelName' , 'hotelTaj')
+    }
 }

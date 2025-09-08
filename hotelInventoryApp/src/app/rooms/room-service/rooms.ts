@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { roomList } from '../room';
-
+import { environment } from '../../../environments/environment';
+import{APP_CONFIG_SERVICE} from '../../appConfig/appConfig.service';
+import { appConfig } from '../../appConfig/appConfig.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -32,9 +34,10 @@ export class RoomService {
       checkOutTime : new Date('11-11-2024'),
       rating:4.2234234
     }];
-    constructor(){
+    constructor(@Inject(APP_CONFIG_SERVICE) private config:any ){
       // this will help us to know how many instance are created of this service
       console.log('room service initialized');
+      console.log(environment.apiEndPoint);
     }
     getRooms(){
       return this.roomList;
