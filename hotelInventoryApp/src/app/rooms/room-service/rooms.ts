@@ -8,7 +8,7 @@ import { appConfig } from '../../appConfig/appConfig.interface';
 })
 export class RoomService {
   roomList : roomList[]= [{
-      roomNumber:1,
+      roomNumber:'1',
       roomType : 'Private',
       amenities : 'AC , Wifi , Free Breakfast, Free lunch, Free Dinner',
       price : 10000,
@@ -17,7 +17,7 @@ export class RoomService {
       rating:4.5324234
     },
     {
-      roomNumber:2,
+      roomNumber:'2',
       roomType : 'Deluxe',
       amenities : 'AC , Wifi , Free Breakfast, Free Lunch',
       price : 5000,
@@ -26,7 +26,7 @@ export class RoomService {
       rating:4.334234234
     },
     {
-      roomNumber:3,
+      roomNumber:'3',
       roomType : 'Standard',
       amenities : 'AC , Wifi , Free Breakfast',
       price : 2000,

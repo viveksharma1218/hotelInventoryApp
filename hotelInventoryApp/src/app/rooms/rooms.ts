@@ -45,7 +45,7 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit{
 
   addRoom(){
     const room : roomList = {
-      roomNumber:4,
+      roomNumber:'4',
       roomType : 'Private',
       amenities : 'AC , Wifi , Free Breakfast, Free lunch, Free Dinner',
       price : 2500,
