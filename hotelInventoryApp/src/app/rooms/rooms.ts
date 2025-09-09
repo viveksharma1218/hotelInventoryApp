@@ -78,6 +78,20 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit{
       this.RoomList = data;
     });
   }
+  editRoom(){
+    const  room:roomList={
+      roomNumber:'3',
+      roomType : 'Private',
+      amenities : 'AC , Wifi , Free Breakfast, Free lunch, Free Dinner',
+      price : 33333,
+      checkInTime : new Date('11-11-2024'),
+      checkOutTime : new Date('11-11-2024'),
+      rating:3.5324234
+    }
+    this.roomService.editRoom(room).subscribe((data)=>{
+      this.RoomList = data;
+    });
+  }
   ngDoCheck(): void {
       console.log('this is ngDoCheck')
   }

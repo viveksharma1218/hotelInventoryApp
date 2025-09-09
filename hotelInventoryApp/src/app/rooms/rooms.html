@@ -14,9 +14,9 @@
     <p [ngStyle]="{'color': rooms!.availableRooms ? 'green' : 'pink'}">Number of Rooms</p>
     <div [innerText]="numberOfRooms"></div>
 </div>
-<button (click)="toggle()">toggle</button>
+<button (click)="toggle()" class="btn btn-primary">toggle</button>
 <!--Use event binding-->
-
+<button (click)="editRoom()" class="btn btn-primary">Edit Room</button>
 <!--Using ngif with optional chaining -->
 <!-- ngIf checks whether condition true or false, If true than content is available otherwise not-->
 <div *ngIf="rooms?.availableRooms">Available Rooms</div>
@@ -24,7 +24,7 @@
 <!-- double Question mark is working as OR -->
 {{rooms?.availableRooms ?? 'No Room Available'}}
 <div>
-    <button (click)="addRoom()">Add Room</button>
+    <button (click)="addRoom()" class="btn btn-primary">Add Room</button>
 </div>
 <hinv-room-list [rooms] = "RoomList" [title]="Title"
 (selectedRoom)="selectRoom($event)" *ngIf="hideRooms"></hinv-room-list>

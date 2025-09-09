@@ -27,4 +27,8 @@ export class RoomService {
       // datatype is an Array here because this API is returning all data usually only new data returns
       return this.http.post<roomList[]>('/api/rooms', room)
     }
+
+    editRoom(room:roomList){
+      return this.http.put<roomList[]>(`/api/rooms/${room.roomNumber}`,room);
+    }
 }
