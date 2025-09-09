@@ -72,7 +72,11 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit{
       rating:3.5324234
     };
     //this.RoomList.push(room); // works before change detection strategy on push
-    this.RoomList = [...this.RoomList,room]; // not modifying creating new Array Using old and new data.
+    //this.RoomList = [...this.RoomList,room]; // not modifying creating new Array Using old and new data.
+    // lets do put request
+    this.roomService.addRoom(room).subscribe((data)=>{
+      this.RoomList = data;
+    });
   }
   ngDoCheck(): void {
       console.log('this is ngDoCheck')

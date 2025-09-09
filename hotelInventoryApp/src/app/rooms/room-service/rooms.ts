@@ -1,9 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
-import { roomList } from '../room';
+import { roomList, room } from '../room';
 import { environment } from '../../../environments/environment';
 import{APP_CONFIG_SERVICE} from '../../appConfig/appConfig.service';
 import { appConfig } from '../../appConfig/appConfig.interface';
 import { HttpClient } from '@angular/common/http';
+import { Rooms } from '../rooms';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,5 +22,9 @@ export class RoomService {
       // we are also giving data type meaning data we are receiving must be of this type
       return this.http.get<roomList[]>('/api/rooms');
       
+    }
+    addRoom(room:roomList){
+      // datatype is an Array here because this API is returning all data usually only new data returns
+      return this.http.post<roomList[]>('/api/rooms', room)
     }
 }
