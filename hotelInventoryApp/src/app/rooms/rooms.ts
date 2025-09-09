@@ -6,6 +6,7 @@ import { CommonModule, NgIf } from "@angular/common";
 import { RoomList } from "./room-list/room-list";
 import { Header } from '../header/header';
 import { RoomService } from './room-service/rooms';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -21,6 +22,13 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit{
   public hideRooms:boolean = false;
   Title:string = 'Room List(old title)';
   yourRoom:roomList | undefined;
+  stream  = new Observable ((observer)=>{
+    observer.next ('data1');
+    observer.next('data2');
+    observer.next('data3');
+    observer.next('data4');
+    observer.complete();
+  });
   // new viewChild() syntax using as signal query
   //headerRef = viewChild(Header);   //when you use this headerRef use as a function- this.headerRef()
   constructor(private cdr: ChangeDetectorRef, private roomService:RoomService){}
@@ -36,7 +44,17 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit{
   }
   RoomList:roomList[] = []
   ngOnInit () :void{
-    this.RoomList = this.roomService.getRooms();
+    this.roomService.getRooms().subscribe(rooms => {
+      this.RoomList = rooms;
+    this.stream.subscribe((data)=>{
+      console.log(data);
+    });
+    this.stream.subscribe({
+      next:(value)=>{console.log(value)},
+      complete:() => {console.log('stream ended')},
+      error:(err)=>{console.log(err)},
+    });
+    });
   }
   selectRoom(data:roomList){
     console.log(data);
