@@ -31,4 +31,7 @@ export class RoomService {
     editRoom(room:roomList){
       return this.http.put<roomList[]>(`/api/rooms/${room.roomNumber}`,room);
     }
+    deleteRoom(id:string){
+      return this.http.delete<roomList[]>(`/api/rooms/${id}`);
+    }
 }

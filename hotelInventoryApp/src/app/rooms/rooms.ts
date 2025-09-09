@@ -92,6 +92,13 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit{
       this.RoomList = data;
     });
   }
+  deleteRoom(){
+    const id = '2';
+    this.roomService.deleteRoom(id).subscribe((data)=>{
+    // delete API does not return anything but this is a dummy API so we have whole list of room
+      this.RoomList = data;
+    })
+  }
   ngDoCheck(): void {
       console.log('this is ngDoCheck')
   }
