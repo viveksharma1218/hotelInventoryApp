@@ -3,7 +3,7 @@ import { roomList, room } from '../room';
 import { environment } from '../../../environments/environment';
 import{APP_CONFIG_SERVICE} from '../../appConfig/appConfig.service';
 import { appConfig } from '../../appConfig/appConfig.interface';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpRequest } from '@angular/common/http';
 import { Rooms } from '../rooms';
 @Injectable({
   providedIn: 'root'
@@ -34,4 +34,14 @@ export class RoomService {
     deleteRoom(id:string){
       return this.http.delete<roomList[]>(`/api/rooms/${id}`);
     }
+    // creating http request. we are using json placeholder api for photos that has 5000 records
+    getPhotos(){
+      const request = new HttpRequest('GET','https://jsonplaceholder.typicode.com/photos',
+        {
+          reportProgress:true,
+        }
+      );
+      return this.http.request(request);
+    }
+    
 }

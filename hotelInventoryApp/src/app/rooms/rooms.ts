@@ -7,6 +7,7 @@ import { RoomList } from "./room-list/room-list";
 import { Header } from '../header/header';
 import { RoomService } from './room-service/rooms';
 import { Observable } from 'rxjs';
+import { HttpEventType } from '@angular/common/http';
 
 
 @Component({
@@ -19,9 +20,10 @@ import { Observable } from 'rxjs';
 export class Rooms implements OnInit , DoCheck, AfterViewInit{
   hotelname:string = 'Taj Hotel';
   numberOfRooms:number = 50;
-  public hideRooms:boolean = false;
+  public hideRooms:boolean = true;
   Title:string = 'Room List(old title)';
   yourRoom:roomList | undefined;
+  totalBytes :number = 0;
   stream  = new Observable ((observer)=>{
     observer.next ('data1');
     observer.next('data2');
@@ -45,17 +47,19 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit{
   RoomList:roomList[] = []
   ngOnInit () :void{
     this.roomService.getRooms().subscribe(rooms => {
-      this.RoomList = rooms;
-    this.stream.subscribe((data)=>{
-      console.log(data);
+        this.RoomList = rooms;
+      this.stream.subscribe((data)=>{
+        console.log(data);
+      });
+      this.stream.subscribe({
+        next:(value)=>{console.log(value)},
+        complete:() => {console.log('stream ended')},
+        error:(err)=>{console.log(err)},
+      });
     });
-    this.stream.subscribe({
-      next:(value)=>{console.log(value)},
-      complete:() => {console.log('stream ended')},
-      error:(err)=>{console.log(err)},
-    });
-    });
-  }
+    // lets made httprequest with ngOnInit
+    
+  };
   selectRoom(data:roomList){
     console.log(data);
     this.yourRoom = data;
@@ -97,6 +101,31 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit{
     this.roomService.deleteRoom(id).subscribe((data)=>{
     // delete API does not return anything but this is a dummy API so we have whole list of room
       this.RoomList = data;
+    })
+  }
+  getPhotos(){
+    this.roomService.getPhotos().subscribe((event)=>{
+      switch(event.type){
+        case HttpEventType.Sent:{
+          console.log('httpRequest sent');
+          break;
+        }
+        case HttpEventType.ResponseHeader:{
+          console.log('request seccuss');
+          break;
+        }
+        case HttpEventType.DownloadProgress:{
+          //we are not using event.total because till whole data is downloded this will be undefined
+          // loaded will update step by step 
+          this.totalBytes += event.loaded;
+          break;
+        }
+        case HttpEventType.Response:{
+          // try other event. also 
+          console.log(event.body);
+          break;
+        }
+      }
     })
   }
   ngDoCheck(): void {

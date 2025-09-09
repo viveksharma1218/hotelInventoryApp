@@ -16,8 +16,10 @@
 </div>
 <button (click)="toggle()" class="btn btn-primary">toggle</button>
 <!--Use event binding-->
-<button (click)="editRoom()" class="btn btn-primary">Edit Room</button>
-<button (click)="deleteRoom()" class="btn btn-primary">Delete 2nd Room</button>
+<button (click)="editRoom()" class="btn btn-success">Edit Room</button>
+<button (click)="deleteRoom()" class="btn btn-dark">Delete 2nd Room</button>
+<button (click)="getPhotos()" class="btn btn-secondary">jsonRequest</button>
+<h1>{{totalBytes}}</h1>
 <!--Using ngif with optional chaining -->
 <!-- ngIf checks whether condition true or false, If true than content is available otherwise not-->
 <div *ngIf="rooms?.availableRooms">Available Rooms</div>
