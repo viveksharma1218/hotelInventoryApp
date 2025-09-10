@@ -6,7 +6,7 @@ import { CommonModule, NgIf } from "@angular/common";
 import { RoomList } from "./room-list/room-list";
 import { Header } from '../header/header';
 import { RoomService } from './room-service/rooms';
-import { Observable } from 'rxjs';
+import { Observable,Subscription} from 'rxjs';
 import { HttpEventType } from '@angular/common/http';
 
 
@@ -17,13 +17,14 @@ import { HttpEventType } from '@angular/common/http';
   styleUrl: './rooms.scss',
   changeDetection:ChangeDetectionStrategy.OnPush,
 })
-export class Rooms implements OnInit , DoCheck, AfterViewInit{
+export class Rooms implements OnInit , DoCheck, AfterViewInit,OnDestroy{
   hotelname:string = 'Taj Hotel';
   numberOfRooms:number = 50;
   public hideRooms:boolean = true;
   Title:string = 'Room List(old title)';
   yourRoom:roomList | undefined;
   totalBytes :number = 0;
+  subscription!:Subscription;
   stream  = new Observable ((observer)=>{
     observer.next ('data1');
     observer.next('data2');
@@ -50,7 +51,8 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit{
     // rather than using getRooms method we will use getRooms$ property that have shareReplay applied
     this.roomService.getRooms$.subscribe(rooms => {
         this.RoomList = rooms;
-      this.stream.subscribe((data)=>{
+    // saved inside rxjs subscription type so rxjs knows about subscription
+      this.subscription = this.stream.subscribe((data)=>{
         console.log(data);
       });
       this.stream.subscribe({
@@ -150,4 +152,8 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit{
       //headerComponent.changeDetectorRef.detectChanges();
       //this.headerComponent.changeDetectorRef.detectChanges();
   }
+  ngOnDestroy(): void {
+      this.subscription.unsubscribe();
+  }
+  
 }
