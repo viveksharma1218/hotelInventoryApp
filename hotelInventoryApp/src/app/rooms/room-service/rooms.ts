@@ -21,6 +21,7 @@ export class RoomService {
       console.log(environment.apiEndPoint);
       // we are initializing getRooms$ inside constructor because before there was error - using http before 
       // initializaion and http will initialize after this will initialize
+      // to introduce an error change the address like : '/api/roo';
       this.getRooms$ = this.http.get<roomList[]>('/api/rooms').pipe(
       shareReplay(1)
   );
