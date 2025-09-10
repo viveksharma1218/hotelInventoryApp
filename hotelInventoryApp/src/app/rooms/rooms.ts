@@ -46,7 +46,9 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit{
   }
   RoomList:roomList[] = []
   ngOnInit () :void{
-    this.roomService.getRooms().subscribe(rooms => {
+    //this.roomService.getRooms().subscribe(rooms => {
+    // rather than using getRooms method we will use getRooms$ property that have shareReplay applied
+    this.roomService.getRooms$.subscribe(rooms => {
         this.RoomList = rooms;
       this.stream.subscribe((data)=>{
         console.log(data);

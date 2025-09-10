@@ -5,17 +5,28 @@ import{APP_CONFIG_SERVICE} from '../../appConfig/appConfig.service';
 import { appConfig } from '../../appConfig/appConfig.interface';
 import { HttpClient,HttpRequest } from '@angular/common/http';
 import { Rooms } from '../rooms';
+import { Observable, shareReplay } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class RoomService {
   roomList : roomList[]= [];
-    constructor(@Inject(APP_CONFIG_SERVICE) private config:any,
-   private http : HttpClient){
+  // the Below property we will use to apply share replay rxjs operator so we don't have to make api call more than 
+  // one time for the same data.
+  getRooms$ : Observable<roomList[]>;
+  constructor(@Inject(APP_CONFIG_SERVICE) private config:any,
+      private http : HttpClient){
       // this will help us to know how many instance are created of this service
       console.log('room service initialized');
       console.log(environment.apiEndPoint);
-    }
+      // we are initializing getRooms$ inside constructor because before there was error - using http before 
+      // initializaion and http will initialize after this will initialize
+      this.getRooms$ = this.http.get<roomList[]>('/api/rooms').pipe(
+      shareReplay(1)
+  );
+  }
+   
+  
     getRooms(){
       //return this.roomList; this was using default data now we bring data from API
       // we are not using prefix of the address (localhost:3000) because we have already saved that 
