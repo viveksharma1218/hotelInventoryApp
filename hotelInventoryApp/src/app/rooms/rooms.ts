@@ -47,10 +47,12 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit,OnDestroy{
   }
   RoomList:roomList[] = []
   ngOnInit () :void{
+    // lets made httprequest with ngOnInit
     //this.roomService.getRooms().subscribe(rooms => {
     // rather than using getRooms method we will use getRooms$ property that have shareReplay applied
     this.roomService.getRooms$.subscribe(rooms => {
         this.RoomList = rooms;
+    });
     // saved inside rxjs subscription type so rxjs knows about subscription
       this.subscription = this.stream.subscribe((data)=>{
         console.log(data);
@@ -60,8 +62,7 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit,OnDestroy{
         complete:() => {console.log('stream ended')},
         error:(err)=>{console.log(err)},
       });
-    });
-    // lets made httprequest with ngOnInit
+    
     
   };
   selectRoom(data:roomList){
@@ -153,7 +154,7 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit,OnDestroy{
       //this.headerComponent.changeDetectorRef.detectChanges();
   }
   ngOnDestroy(): void {
-      this.subscription.unsubscribe();
+      this.subscription.unsubscribe(); 
   }
   
 }
