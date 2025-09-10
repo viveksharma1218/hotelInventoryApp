@@ -3,9 +3,10 @@ import { roomList, room } from '../room';
 import { environment } from '../../../environments/environment';
 import{APP_CONFIG_SERVICE} from '../../appConfig/appConfig.service';
 import { appConfig } from '../../appConfig/appConfig.interface';
-import { HttpClient,HttpRequest } from '@angular/common/http';
+import { HttpClient,HttpHeaders,HttpRequest } from '@angular/common/http';
 import { Rooms } from '../rooms';
 import { Observable, shareReplay } from 'rxjs';
+import { Header } from '../../header/header';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,6 +15,9 @@ export class RoomService {
   // the Below property we will use to apply share replay rxjs operator so we don't have to make api call more than 
   // one time for the same data.
   getRooms$ : Observable<roomList[]>;
+  headers = new HttpHeaders(
+    {token : 555555555555,}
+  )
   constructor(@Inject(APP_CONFIG_SERVICE) private config:any,
       private http : HttpClient){
       // this will help us to know how many instance are created of this service
@@ -22,9 +26,9 @@ export class RoomService {
       // we are initializing getRooms$ inside constructor because before there was error - using http before 
       // initializaion and http will initialize after this will initialize
       // to introduce an error change the address like : '/api/roo';
-      this.getRooms$ = this.http.get<roomList[]>('/api/rooms').pipe(
+      this.getRooms$ = this.http.get<roomList[]>('/api/rooms',{ headers:this.headers}).pipe(
       shareReplay(1)
-  );
+      );
   }
    
   
@@ -41,7 +45,9 @@ export class RoomService {
     }
 
     editRoom(room:roomList){
-      return this.http.put<roomList[]>(`/api/rooms/${room.roomNumber}`,room);
+      return this.http.put<roomList[]>(`/api/rooms/${room.roomNumber}`,room,{
+        headers : this.headers
+      });
     }
     deleteRoom(id:string){
       return this.http.delete<roomList[]>(`/api/rooms/${id}`);
