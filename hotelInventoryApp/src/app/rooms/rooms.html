@@ -33,12 +33,13 @@
 </div>
 <!--this will show error message-->
 <h1>{{getError$ | async}}</h1>
+<h5>number of Rooms(using map opertor){{roomCount$ | async}}</h5>
 <!--now instead on assigning roomlist we will assign room$ and use async pipe of angular-->
 <!-- <hinv-room-list [rooms] = "rooms$ | async " [title]="Title"
 (selectedRoom)="selectRoom($event)" *ngIf="hideRooms || rooms$">
 </hinv-room-list> -->
 <!-- the above approach will make api call for every instance -->
-<div *ngIf=" rooms$ | async as roomData" >
+<div *ngIf=" rooms$ | async as roomData">
     <hinv-room-list [rooms] = "roomData" (selectedRoom)="selectRoom($event)">
     </hinv-room-list>
 </div>

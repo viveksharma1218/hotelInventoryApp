@@ -6,7 +6,7 @@ import { CommonModule, NgIf } from "@angular/common";
 import { RoomList } from "./room-list/room-list";
 import { Header } from '../header/header';
 import { RoomService } from './room-service/rooms';
-import { catchError, Observable,of,Subject,Subscription} from 'rxjs';
+import { catchError, Observable,of,Subject,Subscription,map} from 'rxjs';
 import { HttpEventType } from '@angular/common/http';
 
 
@@ -27,6 +27,7 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit,OnDestroy{
   subscription!:Subscription;
   error$ = new Subject<string>();
   getError$ = this.error$.asObservable();
+  roomCount$ ;
   // we will initialize this in constructor
   rooms$;
   stream  = new Observable ((observer)=>{
@@ -45,7 +46,12 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit,OnDestroy{
         this.error$.next(err.message);
         return of([]);
       })
-    )
+    );
+    this.roomCount$ = this.roomService.getRooms$.pipe(
+    map((roomData)=>{
+      return roomData.length
+    })
+  )
   }
   toggle(){
     this.hideRooms = !this.hideRooms;
