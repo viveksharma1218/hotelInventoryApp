@@ -4,6 +4,8 @@
 <hinv-header></hinv-header>
 <hinv-header></hinv-header>
 <hinv-header></hinv-header>
+<!--lets how data will appear after accessing through async instead of subscribe method-->
+<!--{{rooms$ | async | json}}-->
 <!--How to use data binding-->
 <p>this is interpolation binding to access .ts file data. just put 
     variable name inside double curly bracket:{{hotelname}}</p>
@@ -29,7 +31,14 @@
 <div>
     <button (click)="addRoom()" class="btn btn-primary">Add Room</button>
 </div>
-<hinv-room-list [rooms] = "RoomList" [title]="Title"
-(selectedRoom)="selectRoom($event)" *ngIf="hideRooms"></hinv-room-list>
+<!--now instead on assigning roomlist we will assign room$ and use async pipe of angular-->
+<!-- <hinv-room-list [rooms] = "rooms$ | async " [title]="Title"
+(selectedRoom)="selectRoom($event)" *ngIf="hideRooms || rooms$">
+</hinv-room-list> -->
+<!-- the above approach will make api call for every instance -->
+<div *ngIf=" rooms$ | async as roomData" >
+    <hinv-room-list [rooms] = "roomData" (selectedRoom)="selectRoom($event)">
+    </hinv-room-list>
+</div>
 <p>your room</p>
 <div *ngIf="yourRoom">{{yourRoom | json}}</div>

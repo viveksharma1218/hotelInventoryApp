@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 export class RoomList implements OnChanges, OnDestroy {
   // now rooms property can be used to send data
-  @Input() rooms: roomList[] = [];
+  @Input() rooms: roomList[] | null= [];  // null datatype because async can pass null also
   @Output() selectedRoom = new EventEmitter<roomList>();
   @Input() title:string = '';
   

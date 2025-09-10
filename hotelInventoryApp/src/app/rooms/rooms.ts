@@ -25,6 +25,8 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit,OnDestroy{
   yourRoom:roomList | undefined;
   totalBytes :number = 0;
   subscription!:Subscription;
+  // we will initialize this in constructor
+  rooms$;
   stream  = new Observable ((observer)=>{
     observer.next ('data1');
     observer.next('data2');
@@ -34,7 +36,9 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit,OnDestroy{
   });
   // new viewChild() syntax using as signal query
   //headerRef = viewChild(Header);   //when you use this headerRef use as a function- this.headerRef()
-  constructor(private cdr: ChangeDetectorRef, private roomService:RoomService){}
+  constructor(private cdr: ChangeDetectorRef, private roomService:RoomService){
+    this.rooms$ = this.roomService.getRooms$;
+  }
   toggle(){
     this.hideRooms = !this.hideRooms;
     this.Title = 'Room List (new title)';
@@ -50,9 +54,12 @@ export class Rooms implements OnInit , DoCheck, AfterViewInit,OnDestroy{
     // lets made httprequest with ngOnInit
     //this.roomService.getRooms().subscribe(rooms => {
     // rather than using getRooms method we will use getRooms$ property that have shareReplay applied
-    this.roomService.getRooms$.subscribe(rooms => {
-        this.RoomList = rooms;
-    });
+    
+    // we are commenting below line because now we will use async pipe of angular instead of rxjs subscribe method
+    // async can manage subscribe and unsubscribe(we component will destroy) 
+    // this.roomService.getRooms$.subscribe(rooms => {
+    //     this.RoomList = rooms;
+    // });
     // saved inside rxjs subscription type so rxjs knows about subscription
       this.subscription = this.stream.subscribe((data)=>{
         console.log(data);
