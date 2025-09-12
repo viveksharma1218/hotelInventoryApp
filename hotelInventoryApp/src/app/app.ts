@@ -5,6 +5,7 @@ import { Container } from './container/container';
 import { Employee } from "./employee/employee";
 import { Header } from "./header/header";
 import { localStorageToken } from './localStorage.token';
+import { InitServ } from './init-serv';
 
 @Component({
   selector: 'hinv-root',
@@ -19,15 +20,18 @@ import { localStorageToken } from './localStorage.token';
 export class App  {
   protected readonly title = signal('hotelInventoryApp');
   role = 'Admin';
+  //config:any;
   //@ViewChild('user', { read: ViewContainerRef })
   //userContainer!: ViewContainerRef;
   //ngAfterViewInit(): void {
   //    const componentRef = this.userContainer.createComponent(Rooms)
   //}
   constructor(private cdr: ChangeDetectorRef, 
-    @Inject(localStorageToken) private localStorage:Storage){}
+    @Inject(localStorageToken) private localStorage:Storage,
+  private InitServ:InitServ){}
   
     ngOnInit(){
-      this.localStorage.setItem('hotelName' , 'hotelTaj')
+      this.localStorage.setItem('hotelName' , 'hotelTaj');
+      //this.config = this.InitServ.getConfig();
     }
 }
