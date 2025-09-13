@@ -1,10 +1,20 @@
 import { Routes } from '@angular/router';
-import { Rooms } from './rooms/rooms';
 import { Employee } from './employee/employee';
+import { Rooms } from './rooms/rooms';
+import { Notfound } from './notfound/notfound';
+import { RoomsBooking } from './rooms/rooms-booking/rooms-booking';
 
 export const routes: Routes = [
-    {path:'rooms', component : Rooms},
+    {path:'rooms', component :Rooms},
+    //lets create a dynamic path that will redirect to rooms-booking component.
+    // we are saying dynamic because every time this path will have different room number
+    {path:'rooms/:id', component:RoomsBooking},
     {path:'employee',  component:Employee},
+
+    // below two paths must be at the end otherwise paths after these two won't work
     {path:'' , redirectTo:'/rooms' , pathMatch:'full'},
+    //{path:'**' , component:Rooms},  // if path does not match user will be redirected to rooms  
+    // or we can make a different component that informs user what is happening 
+    {path:'**' , component:Notfound , pathMatch:'prefix'},
     
 ];

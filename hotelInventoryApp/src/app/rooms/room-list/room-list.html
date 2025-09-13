@@ -28,11 +28,15 @@
         <td>{{data.checkOutTime | date : 'medium'}}</td> <!--default format is short-->
         <td>{{data.rating | number : '1.2-2'}}</td>
         <td>
-            <button class="btn btn-primary" (click)="selectRoom(data)">
+            <!-- <button class="btn btn-primary" (click)="selectRoom(data)"> -->
             <!--data is object above created which has one room info-->
-                Select
-            </button>
+                
+            <!-- </button> -->
+             <button class="btn btn-primary" [routerLink]="['/rooms', data.roomNumber]">
+               BookRoom
+             </button>
         </td>
+
     </tr>
     </tbody>
 </table>

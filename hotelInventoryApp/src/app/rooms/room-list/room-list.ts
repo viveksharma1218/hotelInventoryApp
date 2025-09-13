@@ -1,11 +1,12 @@
 import { Component, Input,Output,EventEmitter, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { roomList } from '../room';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'hinv-room-list',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './room-list.html',
   styleUrl: './room-list.scss'
 })

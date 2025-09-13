@@ -1,12 +1,12 @@
-import { AfterViewInit,OnInit, Component, ElementRef, signal, ViewChild, ViewContainerRef,ChangeDetectorRef, Inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { AfterViewInit,OnInit, Component, ElementRef, signal, ViewChild, 
+  ChangeDetectorRef, Inject } from '@angular/core';
 import { localStorageToken } from './localStorage.token';
 import { InitServ } from './init-serv';
-
+import { NavsidebarComponent } from './navsidebar/navsidebar.component';
 
 @Component({
   selector: 'hinv-root',
-  imports: [RouterOutlet],
+  imports:[NavsidebarComponent],
   templateUrl: './app.html',
   //template:`<h1>Hello world from inline template</h1>
   //<h2>to make multiline use tick otherwise single quote</h2>`,
