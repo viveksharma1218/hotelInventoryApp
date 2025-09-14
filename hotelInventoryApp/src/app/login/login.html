@@ -1,16 +1,16 @@
 <h3>log In here</h3>
 <form>
     <div class="form-group">
-        <input hinvHover color="red"
+        <input hinvHover color="red" hinvEmailvalidator
             type="email" class="form-control" name="userEmail" 
-          [(ngModel)]="userEmail" placeholder="admin@gmail.com"
-
+          [(ngModel)]="userEmail" placeholder="admin@gmail.com" #email="ngModel"
         >
+        <div>{{email.errors |json}}</div>
     </div>
     <div class="form-group">
-        <input hinvHover="black"
+        <input hinvHover="black" 
             type="password" class="form-control" name="userPassword" 
-            [(ngModel)]="userPassword" placeholder="1234"
+            [(ngModel)]="userPassword" placeholder="1234" 
         >
     </div>
     <div class="form-group" >

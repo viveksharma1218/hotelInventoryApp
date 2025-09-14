@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Directive } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Hover } from '../hover';
+import { JsonPipe } from '@angular/common';
+import { Emailvalidator } from '../emailvalidator';
 
 @Component({
   selector: 'hinv-login',
-  imports: [FormsModule,Hover],
+  standalone:true,
+  imports: [FormsModule,Hover,JsonPipe,Emailvalidator],
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })
