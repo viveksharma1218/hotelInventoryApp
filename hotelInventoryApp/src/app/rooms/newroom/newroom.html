@@ -8,56 +8,56 @@
 <div class="alert alert-success" *ngIf="successMessage !== '' ">
     {{successMessage}}
 </div>
-<form (ngSubmit)="addRoom()" #ngForm="ngForm">
+<form (ngSubmit)="addRoom(ngForm)" #ngForm="ngForm">
     <div class="form-group">
         <input 
         required min="5" max="50" 
         class="form-control" type="number" name="roomNumber" 
         placeholder="roomNumber" 
         [(ngModel)]="room.roomNumber" #roomNumber="ngModel" >
-        <div *ngIf="roomNumber.errors"> {{roomNumber.errors | json}}</div>
+        <div *ngIf="roomNumber.dirty && roomNumber.errors"> {{roomNumber.errors | json}}</div>
     </div>
     <div class="form-group">
         <input 
         required minlength="5" maxlength="20"
         class="form-control" type="text" name="roomType" placeholder="RoomType" 
         [(ngModel)]="room.roomType" #roomType="ngModel">
-        <div>{{roomType.errors |json}}</div>
+        <div *ngIf="roomType.dirty && roomType.errors">{{roomType.errors |json}}</div>
     </div>
     <div class="form-group">
         <input 
         required minlength="5" maxlength="20"
         class="form-control" type="text" name="amenities" placeholder="Amenities" 
         [(ngModel)]="room.amenities" #amenities="ngModel" >
-        <div> {{amenities.errors |json}}</div> 
+        <div *ngIf="amenities.dirty && amenities.errors"> {{amenities.errors |json}}</div> 
     </div>
     <div class="form-group">
         <input 
         required max="10000" min="3000"
         class="form-control" type="number" name="price" placeholder="Price" 
         [(ngModel)]="room.price"  #price="ngModel" >
-        <div>{{price.errors |json}}</div>
+        <div *ngIf="price.dirty && price.errors">{{price.errors |json}}</div>
     </div>
     <div class="form-group">
         <input 
         required 
         class="form-control" type="datetime" name="checkInTime" placeholder="checkInTime"
         [(ngModel)]="room.checkInTime"  #checkInTime="ngModel" >
-        <div *ngIf="checkInTime.errors">{{checkInTime.errors|json}}</div>
+        <div *ngIf="checkInTime.dirty && checkInTime.errors">{{checkInTime.errors|json}}</div>
     </div>
     <div class="form-group">
         <input 
         required 
         class="form-control" type="datetime" name="checkOutTime" placeholder="checkOutTime"
         [(ngModel)]="room.checkOutTime" #checkOutTime="ngModel" >
-        <div *ngIf="checkOutTime.errors">{{checkOutTime.errors|json}}</div>
+        <div *ngIf="checkOutTime.dirty && checkOutTime.errors">{{checkOutTime.errors|json}}</div>
     </div>
     <div class="form-group">
         <input 
         required min="1" max="10"
         class="form-control" type="number" name="rating" placeholder="Rating" 
         [(ngModel)]="room.rating" #rating="ngModel" >
-        <div *ngIf="rating.errors?.['min'] || rating.errors?.['max']">{{rating.errors |json}}</div>
+        <div *ngIf=" rating.dirty && rating.errors?.['min'] || rating.errors?.['max']">{{rating.errors |json}}</div>
     </div>
     <div>
         <button class="btn btn-primary" type="submit" [disabled]="ngForm.invalid">

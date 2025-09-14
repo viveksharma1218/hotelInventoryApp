@@ -1,0 +1,21 @@
+<h3>log In here</h3>
+<form>
+    <div class="form-group">
+        <input hinvHover color="red"
+            type="email" class="form-control" name="userEmail" 
+          [(ngModel)]="userEmail" placeholder="admin@gmail.com"
+
+        >
+    </div>
+    <div class="form-group">
+        <input hinvHover="black"
+            type="password" class="form-control" name="userPassword" 
+            [(ngModel)]="userPassword" placeholder="1234"
+        >
+    </div>
+    <div class="form-group" >
+        <button type="submit" class="btn btn-primary"
+        (click)="logIn()"
+        >login</button>
+    </div>
+</form>
