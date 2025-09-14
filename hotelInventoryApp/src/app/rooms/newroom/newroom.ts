@@ -2,17 +2,17 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { roomList } from '../room';
 import { NgModel } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
+import { JsonPipe, NgIf } from '@angular/common';
 import { RoomService } from '../room-service/rooms';
 
 @Component({
   selector: 'hinv-newroom',
-  imports: [FormsModule,JsonPipe],
+  imports: [FormsModule, JsonPipe, NgIf],
   templateUrl: './newroom.html',
   styleUrl: './newroom.scss'
 })
 export class Newroom {
-  successMessage:string = 'room added successfully' ;
+  successMessage:string = '' ;
 
   room:roomList = {
     roomNumber: '',
@@ -27,7 +27,9 @@ export class Newroom {
 
   addRoom(){
     this.roomservice.addRoom(this.room).subscribe(
-      (data)=>{console.log(data)}
+      (data)=>{console.log(data)
+        this.successMessage = 'room added successfully';
+      }
     )
   }
 
