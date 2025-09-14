@@ -3,6 +3,7 @@ import { Employee } from './employee/employee';
 import { Rooms } from './rooms/rooms';
 import { Notfound } from './notfound/notfound';
 import { RoomsBooking } from './rooms/rooms-booking/rooms-booking';
+import { Newroom } from './rooms/newroom/newroom';
 
 export const routes: Routes = [
     {path:'rooms', component :Rooms},
@@ -10,6 +11,9 @@ export const routes: Routes = [
     // we are saying dynamic because every time this path will have different room number
     {path:'rooms/:id', component:RoomsBooking},
     {path:'employee',  component:Employee},
+    {path:'newroom' , component:Newroom},
+
+
 
     // below two paths must be at the end otherwise paths after these two won't work
     {path:'' , redirectTo:'/rooms' , pathMatch:'full'},
