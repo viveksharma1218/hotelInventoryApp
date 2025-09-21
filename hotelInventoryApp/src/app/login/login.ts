@@ -4,6 +4,7 @@ import { Hover } from '../hover';
 import { JsonPipe } from '@angular/common';
 import { Emailvalidator } from '../emailvalidator';
 import { Router } from '@angular/router';
+import { LoginService } from './login-service';
 
 @Component({
   selector: 'hinv-login',
@@ -16,9 +17,9 @@ export class Login {
   userEmail:string = '';
   userPassword!:number ;
 
-  constructor(private route : Router){}
+  constructor(private route : Router, private logInService:LoginService){}
   logIn(){
-    if(this.userEmail =='admin@gmail.com' && this.userPassword == 1234){
+    if(this.logInService.logIn(this.userEmail,this.userPassword)){
       window.alert("logIn successfully");
       this.route.navigate(['/rooms']);
     

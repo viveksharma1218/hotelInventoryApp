@@ -3,6 +3,8 @@ import { AfterViewInit,OnInit, Component, ElementRef, signal, ViewChild,
 import { localStorageToken } from './localStorage.token';
 import { InitServ } from './init-serv';
 import { NavsidebarComponent } from './navsidebar/navsidebar.component';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'hinv-root',
@@ -25,9 +27,16 @@ export class App  {
   //}
   constructor(private cdr: ChangeDetectorRef, 
     @Inject(localStorageToken) private localStorage:Storage,
-  private InitServ:InitServ){}
+  private InitServ:InitServ,private router:Router){}
   
     ngOnInit(){
+      //this.router.events.subscribe(events => console.log(events));
+      this.router.events.pipe( filter(events => events instanceof NavigationStart)
+      ).subscribe(
+        (event) =>{console.log('Navigation Started',event)}
+      );
+      this.router.events.pipe(filter(events => events instanceof NavigationEnd
+        )).subscribe(event => console.log('Navigation End', event))
       this.localStorage.setItem('hotelName' , 'hotelTaj');
       //this.config = this.InitServ.getConfig();
     }
