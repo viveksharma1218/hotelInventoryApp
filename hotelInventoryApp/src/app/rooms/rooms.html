@@ -30,6 +30,7 @@
 {{rooms?.availableRooms ?? 'No Room Available'}}
 <div>
     <button (click)="addRoom()" class="btn btn-primary">Add Room</button>
+    <button routerLink="add">Register New Room</button>
 </div>
 <!--this will show error message-->
 <h1>{{getError$ | async}}</h1>
@@ -45,3 +46,5 @@
 </div>
 <p>your room</p>
 <div *ngIf="yourRoom">{{yourRoom | json}}</div>
+<router-outlet></router-outlet>
+<router-outlet></router-outlet>

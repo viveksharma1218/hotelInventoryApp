@@ -8,11 +8,13 @@ import { Header } from '../header/header';
 import { RoomService } from './room-service/rooms';
 import { catchError, Observable,of,Subject,Subscription,map} from 'rxjs';
 import { HttpEventType } from '@angular/common/http';
+import { RouterOutlet,RouterLink } from '@angular/router';
+
 
 
 @Component({
   selector: 'hinv-rooms',
-  imports: [CommonModule, RoomList,Header],
+  imports: [CommonModule, RoomList, Header, RouterOutlet, RouterLink],
   templateUrl: './rooms.html',
   styleUrl: './rooms.scss',
   changeDetection:ChangeDetectionStrategy.OnPush,

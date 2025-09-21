@@ -7,12 +7,23 @@ import { Newroom } from './rooms/newroom/newroom';
 import { Login } from './login/login';
 
 export const routes: Routes = [
-    {path:'rooms', component :Rooms},
+    {path:'rooms', component :Rooms, children:[
+        //{path:':id', component:RoomsBooking}, //we are already inside rooms so we don't need room in path like before
+        //{path:'add' , component:Newroom},
+        // dynamic path must be at the end because it can match rooms/add to rooms/id
+        {path:'add' , component:Newroom},
+        {path:':id', component:RoomsBooking}
+    ]
+    },
     //lets create a dynamic path that will redirect to rooms-booking component.
     // we are saying dynamic because every time this path will have different room number
-    {path:'rooms/:id', component:RoomsBooking},
+    //{path:'rooms/:id', component:RoomsBooking},
     {path:'employee',  component:Employee},
-    {path:'newroom' , component:Newroom},
+    // let's use lazy loading
+    //{path:'newroom' , component:Newroom},
+    {path:'newroom', 
+        loadComponent:() => import('./rooms/newroom/newroom').then(m => m.Newroom)
+    },
     {path:'login', component:Login},
 
 
@@ -21,6 +32,6 @@ export const routes: Routes = [
     {path:'' , redirectTo:'/login' , pathMatch:'full'},
     //{path:'**' , component:Rooms},  // if path does not match user will be redirected to rooms  
     // or we can make a different component that informs user what is happening 
-    {path:'**' , component:Notfound , pathMatch:'prefix'},
+    {path:'**' , component:Notfound },
     
 ];
