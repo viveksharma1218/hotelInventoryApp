@@ -1,2 +1,118 @@
-<h3>this is roomsBooking component showing roomid</h3>
-<p>{{id$ | async }}</p>
+<!-- <h3>this is roomsBooking component showing roomid</h3>
+<p>{{id$ | async }}</p> -->
+<p><strong>bookingForm values</strong>{{bookingForm.value  | json}}</p>
+<p><strong>pristine</strong>{{bookingForm.pristine}}, <strong>dirty</strong>{{bookingForm.dirty}}</p>
+
+<form [formGroup]="bookingForm">
+
+    <form class="example-form">
+  <mat-form-field class="example-full-width">
+    <mat-label>Room Id</mat-label>
+    <input matInput placeholder="room ID" 
+        type="text" formControlName="roomId"
+    >
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Guest Email</mat-label>
+    <input matInput placeholder="Enter you email" 
+        type="text" formControlName="guestEmail"
+    >
+  </mat-form-field>
+
+  <mat-form-field>
+  <mat-label>checkinDate</mat-label>
+  <input matInput [matDatepicker]="picker" formControlName="checkinDate">
+  <mat-hint>MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+  <mat-form-field>
+  <mat-label>checkoutDate</mat-label>
+  <input matInput [matDatepicker]="picker1" formControlName="checkoutDate">
+  <mat-hint>MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+  <mat-datepicker #picker1></mat-datepicker>
+</mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>bookingStatus</mat-label>
+    <input matInput placeholder="bookingStatus" 
+        type="text" formControlName="bookingStatus"
+    >
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>bookingAmount</mat-label>
+    <input matInput placeholder="bookingAmount" 
+        type="text" formControlName="bookingAmount"
+    >
+  </mat-form-field>
+
+ <mat-form-field>
+  <mat-label>Booking Date</mat-label>
+  <input matInput [matDatepicker]="picker2" formControlName="bookingDate">
+  <mat-hint>MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+  <mat-datepicker #picker2></mat-datepicker>
+</mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>mobileNumber</mat-label>
+    <input matInput placeholder="mobileNumber" 
+        type="number" formControlName="mobileNumber"
+    >
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>guestName</mat-label>
+    <input matInput placeholder="guestName" 
+        type="text" formControlName="guestName"
+    >
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>guestAddress</mat-label>
+    <input matInput placeholder="guestAddress" 
+        type="text" formControlName="guestAddress"
+    >
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>guestCity</mat-label>
+    <input matInput placeholder="guestCity" 
+        type="text" formControlName="guestCity"
+    >
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>guestState</mat-label>
+    <input matInput placeholder="guestState" 
+        type="text" formControlName="guestState"
+    >
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>guestCountry</mat-label>
+    <input matInput placeholder="guestCountry" 
+        type="text" formControlName="guestCountry"
+    >
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>guestZipCode</mat-label>
+    <input matInput placeholder="guestZipCode" 
+        type="number" formControlName="guestZipCode"
+    >
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>guestCount</mat-label>
+    <input matInput placeholder="guestCount" 
+        type="number" formControlName="guestCount"
+    >
+  </mat-form-field>
+
+</form>
+</form>

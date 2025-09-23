@@ -18,13 +18,14 @@ export const routes: Routes = [
         //{path:'add' , component:Newroom},
         // dynamic path must be at the end because it can match rooms/add to rooms/id
         {path:'add' , component:Newroom},
-        {path:':id', component:RoomsBooking}
+       // {path:':id', component:RoomsBooking}
         ],
     },
     //lets create a dynamic path that will redirect to rooms-booking component.
     // we are saying dynamic because every time this path will have different room number
     //{path:'rooms/:id', component:RoomsBooking},
     {path:'employee',  component:Employee ,canActivate:[loginGuard]},
+    {path:'roombooking/:id', component:RoomsBooking},
     // let's use lazy loading
     //{path:'newroom' , component:Newroom},
     {path:'newroom', 
