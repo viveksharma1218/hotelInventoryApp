@@ -3,9 +3,21 @@
 <p><strong>bookingForm values</strong>{{bookingForm.value  | json}}</p>
 <p><strong>pristine</strong>{{bookingForm.pristine}}, <strong>dirty</strong>{{bookingForm.dirty}}</p>
 
-<form [formGroup]="bookingForm">
 
-    <form class="example-form">
+    <form class="example-form"[formGroup]="bookingForm" (ngSubmit)="formSubmit()">
+    <div>
+      <button matButton="filled" type="button" (click)="addPassport()">Add Passport</button>
+      <!--before clicking the Add Passport we don't have this control so we use ng if -->
+      <button matButton="filled" type="button" (click)="removePassport()">Delete Passport</button>
+    </div>
+    
+    @if (bookingForm.get('passportNo')) {
+        <mat-form-field class="example-full-width">
+          <mat-label>passport Number</mat-label>
+          <input matInput  type="text" formControlName="passportNo">
+        </mat-form-field>
+      }
+
   <mat-form-field class="example-full-width">
     <mat-label>Room Id</mat-label>
     <input matInput placeholder="room ID" 
@@ -72,47 +84,77 @@
     >
   </mat-form-field>
 
-  <mat-form-field class="example-full-width">
-    <mat-label>guestAddress</mat-label>
-    <input matInput placeholder="guestAddress" 
-        type="text" formControlName="guestAddress"
-    >
-  </mat-form-field>
+  <div formGroupName="guestAddress">
+    <mat-accordion>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Address </mat-panel-title>
+    </mat-expansion-panel-header>
+        <mat-form-field class="example-full-width">
+            <mat-label>AddressLine1</mat-label>
+            <input matInput placeholder="AddressLine1" 
+                type="text" formControlName="AddressLine1">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>AddressLine2</mat-label>
+            <input matInput placeholder="AddressLine2" 
+                type="text" formControlName="AddressLine2">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>City</mat-label>
+            <input matInput placeholder="City" 
+                type="text" formControlName="City">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>State</mat-label>
+            <input matInput placeholder="State" 
+                type="text" formControlName="State">
+        </mat-form-field>
 
-  <mat-form-field class="example-full-width">
-    <mat-label>guestCity</mat-label>
-    <input matInput placeholder="guestCity" 
-        type="text" formControlName="guestCity"
-    >
-  </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Country</mat-label>
+            <input matInput placeholder="Country" 
+                type="text" formControlName="Country">
+        </mat-form-field>
 
-  <mat-form-field class="example-full-width">
-    <mat-label>guestState</mat-label>
-    <input matInput placeholder="guestState" 
-        type="text" formControlName="guestState"
-    >
-  </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>ZipCode</mat-label>
+          <input matInput placeholder="ZipCode" 
+              type="number" formControlName="ZipCode">
+        </mat-form-field>
 
-  <mat-form-field class="example-full-width">
-    <mat-label>guestCountry</mat-label>
-    <input matInput placeholder="guestCountry" 
-        type="text" formControlName="guestCountry"
-    >
-  </mat-form-field>
 
-  <mat-form-field class="example-full-width">
-    <mat-label>guestZipCode</mat-label>
-    <input matInput placeholder="guestZipCode" 
-        type="number" formControlName="guestZipCode"
-    >
-  </mat-form-field>
+  </mat-expansion-panel>
 
-  <mat-form-field class="example-full-width">
-    <mat-label>guestCount</mat-label>
-    <input matInput placeholder="guestCount" 
-        type="number" formControlName="guestCount"
-    >
-  </mat-form-field>
+</mat-accordion>
+  </div>
+  <div formArrayName="guests">
+  <mat-accordion>
+  <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+          <mat-panel-title> Add Guest</mat-panel-title>
+      </mat-expansion-panel-header>
+      <div *ngFor="let guest of guests.controls; let i=index">
+        <div [formGroupName]="i">
+          <mat-form-field class="example-full-width">
+            <mat-label>Guest Name</mat-label>
+            <input matInput type="text" formControlName="guestName">
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Guest Age</mat-label>
+            <input matInput type="number" formControlName="guestAge">
+          </mat-form-field>
+        </div>
+        <div>
+            <button matButton="filled" type="button" (click)="removeGuest(i)">Delete Guest</button>
+          </div>
+      </div>
 
-</form>
+  </mat-expansion-panel>
+  </mat-accordion>
+  <button matButton="filled" type="button" (click)="addGuest()">Add Guest</button>
+  </div>
+  <div>
+      <button matButton="filled" type="submit">Book Room</button>
+  </div>
 </form>
