@@ -30,6 +30,13 @@
     <input matInput placeholder="Enter you email" 
         type="text" formControlName="guestEmail"
     >
+    <!--materror used to show error if they exist-->
+    @if (bookingForm.get('guestEmail')?.hasError('email')) {
+      <mat-error>Please enter a valid email address</mat-error>
+    }
+    @if (bookingForm.get('guestEmail')?.hasError('required')) {
+      <mat-error>Email is <strong>required</strong></mat-error>
+    }
   </mat-form-field>
 
   <mat-form-field>
@@ -75,13 +82,27 @@
     <input matInput placeholder="mobileNumber" 
         type="number" formControlName="mobileNumber"
     >
+    @if(bookingForm.get('mobileNumber')?.hasError('required')){
+      <mat-error>Mobile Number is required</mat-error>
+    }
+    @if (bookingForm.get('mobileNumber')?.hasError('pattern')) {
+      <mat-error>Mobile Number must be of 10 digits</mat-error>
+    }
+   
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
     <mat-label>guestName</mat-label>
-    <input matInput placeholder="guestName" 
-        type="text" formControlName="guestName"
-    >
+    <input matInput placeholder="guestName" type="text" formControlName="guestName">
+        @if(bookingForm.get('guestName')?.hasError('required')){
+          <mat-error>Guest Name is required</mat-error>
+        }
+        @if(bookingForm.get('guestName')?.hasError('minlength')){
+          <mat-error>minimum 3 letters</mat-error>
+        }
+        @if(bookingForm.get('guestName')?.hasError('maxlength')){
+          <mat-error>maximum 10 letters</mat-error>
+        }
   </mat-form-field>
 
   <div formGroupName="guestAddress">
@@ -94,6 +115,10 @@
             <mat-label>AddressLine1</mat-label>
             <input matInput placeholder="AddressLine1" 
                 type="text" formControlName="AddressLine1">
+        <!--nested form control error-->
+        @if(bookingForm.get('guestAddress.AddressLine1')?.hasError('required')){
+          <mat-error>AddressLine1 is required</mat-error>
+        }
         </mat-form-field>
         <mat-form-field class="example-full-width">
             <mat-label>AddressLine2</mat-label>
@@ -132,13 +157,16 @@
   <mat-accordion>
   <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>
-          <mat-panel-title> Add Guest</mat-panel-title>
+          <mat-panel-title> Provide Guest Info</mat-panel-title>
       </mat-expansion-panel-header>
       <div *ngFor="let guest of guests.controls; let i=index">
         <div [formGroupName]="i">
           <mat-form-field class="example-full-width">
             <mat-label>Guest Name</mat-label>
             <input matInput type="text" formControlName="guestName">
+            @if (bookingForm.get(['guests',i,'guestName'])?.hasError('required')) {
+              <mat-error>Guest Name is required</mat-error>
+            }
           </mat-form-field>
           <mat-form-field class="example-full-width">
             <mat-label>Guest Age</mat-label>
@@ -155,6 +183,12 @@
   <button matButton="filled" type="button" (click)="addGuest()">Add Guest</button>
   </div>
   <div>
-      <button matButton="filled" type="submit">Book Room</button>
+    <mat-checkbox class="example-margin" formControlName="tnc">TnC</mat-checkbox>
   </div>
+  <div>
+      <button matButton="filled" type="submit" [disabled]="bookingForm.invalid">Book Room</button>
+      <button matButton="filled" type="button" (click)="resetForm()">Reset Form</button>
+  </div>
+  
+  
 </form>

@@ -1,7 +1,7 @@
 import { Component,OnInit, signal, Type } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map, Observable } from 'rxjs';
-import { ReactiveFormsModule,FormGroup,FormBuilder,FormControl, FormArray } from '@angular/forms';
+import { ReactiveFormsModule,FormGroup,FormBuilder,FormControl, FormArray, Validators } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -12,6 +12,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NgFor } from '@angular/common';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @Component({
   selector: 'hinv-rooms-booking',
@@ -22,7 +23,8 @@ import { NgFor } from '@angular/common';
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule, MatDividerModule, MatIconModule,
-    MatExpansionModule, NgFor],
+    MatExpansionModule, NgFor,
+    MatCheckboxModule],
   templateUrl: './rooms-booking.html',
   styleUrl: './rooms-booking.scss'
 })
@@ -50,16 +52,16 @@ export class RoomsBooking implements OnInit{
     this.bookingForm = this.formBuilder.group({
       // below are two method to create new form control, Syntax is different works same
         roomId: new FormControl({value:'2',disabled:true}),
-        guestEmail:[''],
+        guestEmail:['', [Validators.required,Validators.email]],
         checkinDate:[''],
         checkoutDate:[''],
         bookingStatus:[''],
         bookingAmount:[''],
         bookingDate:[''],
-        mobileNumber:[''],
-        guestName:[''],
+        mobileNumber:['',[Validators.required,Validators.pattern('^\\d{10}$')]],
+        guestName:['',[Validators.required,Validators.minLength(3),Validators.maxLength(10)]],
         guestAddress: this.formBuilder.group({
-          AddressLine1:[''],
+          AddressLine1:['',[Validators.required]],
           AddressLine2:[''],
           City:[''],
           State:[''],
@@ -68,9 +70,10 @@ export class RoomsBooking implements OnInit{
         }),
         
         guests:this.formBuilder.array([this.formBuilder.group({
-          guestName:[''],
+          guestName:['',[Validators.required]],
           guestAge:['']
-        })])
+        })]),
+        tnc: new FormControl(false,{validators:[Validators.requiredTrue]})
 
     });
   }
@@ -95,6 +98,33 @@ export class RoomsBooking implements OnInit{
   }
   removePassport(){
     this.bookingForm.removeControl('passportNo')
+  }
+  resetForm(){
+    this.bookingForm.reset({
+      roomId: '2',
+        guestEmail:'',
+        checkinDate:'',
+        checkoutDate:'',
+        bookingStatus:'',
+        bookingAmount:'',
+        bookingDate:'',
+        mobileNumber:'',
+        guestName:'',
+        guestAddress: this.formBuilder.group({
+          AddressLine1:'',
+          AddressLine2:'',
+          City:'',
+          State:'',
+          Country:'',
+          ZipCode:'',
+        }),
+        
+        guests:this.formBuilder.array([this.formBuilder.group({
+          guestName:'',
+          guestAge:'',
+        })]),
+        tnc: false
+    })
   }
 }
 
