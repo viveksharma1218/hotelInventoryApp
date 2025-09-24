@@ -52,7 +52,12 @@ export class RoomsBooking implements OnInit{
     this.bookingForm = this.formBuilder.group({
       // below are two method to create new form control, Syntax is different works same
         roomId: new FormControl({value:'2',disabled:true}),
-        guestEmail:['', [Validators.required,Validators.email]],
+        //guestEmail:['', [Validators.required,Validators.email]],
+        //updateOn will listen to value change when we move away from form control
+        guestEmail:['',{
+          updateOn:'blur',
+          validators:[Validators.required,Validators.email]
+        }],
         checkinDate:[''],
         checkoutDate:[''],
         bookingStatus:[''],
@@ -75,7 +80,17 @@ export class RoomsBooking implements OnInit{
         })]),
         tnc: new FormControl(false,{validators:[Validators.requiredTrue]})
 
-    });
+    },
+    // this will apply updateOn on every form control
+    {updateOn:'blur'}
+  );
+    this.sendDefaultData()
+    // we can listen to value changes by this 
+    //  below we wil apply different method to listen to value change
+    // by default this is listening to every keypress on formControl
+    this.bookingForm.valueChanges.subscribe((data)=>{
+      console.log(data);
+    })
   }
   formSubmit(){
     console.log(this.bookingForm.value);
@@ -123,6 +138,31 @@ export class RoomsBooking implements OnInit{
           guestName:'',
           guestAge:'',
         })]),
+        tnc: false
+    })
+  }
+  sendDefaultData(){
+    //this.bookingForm.setValue({
+    // setvalue will show error because it require all values 
+    this.bookingForm.patchValue({
+        roomId: '2',
+        guestEmail:'user@gmail.com',
+        checkinDate:'',
+        checkoutDate:'',
+        //bookingStatus:'', to  make error for set value because it needs all unlike patch
+        bookingAmount:'',
+        bookingDate:'',
+        mobileNumber:'1212121212',
+        guestName:'user',
+        guestAddress: {
+          AddressLine1:'userHome',
+          AddressLine2:'',
+          City:'',
+          State:'',
+          Country:'',
+          ZipCode:'',
+        },
+        guests:[],
         tnc: false
     })
   }
