@@ -7,6 +7,7 @@ import { Newroom } from './rooms/newroom/newroom';
 import { Login } from './login/login';
 import { loginGuard } from './guards/login-guard';
 import { roomGuard } from './rooms/guards/room-guard';
+import { bookingGuard } from './rooms/rooms-booking/guards/booking-guard';
 
 export const routes: Routes = [
     {   path:'rooms', 
@@ -25,7 +26,7 @@ export const routes: Routes = [
     // we are saying dynamic because every time this path will have different room number
     //{path:'rooms/:id', component:RoomsBooking},
     {path:'employee',  component:Employee ,canActivate:[loginGuard]},
-    {path:'roombooking/:id', component:RoomsBooking},
+    {path:'roombooking/:id', component:RoomsBooking,canDeactivate:[bookingGuard]},
     // let's use lazy loading
     //{path:'newroom' , component:Newroom},
     {path:'newroom', 

@@ -46,6 +46,7 @@ export class RoomsBooking implements OnInit{
   }
 
   ngOnInit(){
+    let roomId = this.route.snapshot.paramMap.get('id');
   //   this.route.params.subscribe((routeData)=>{
   //     this.id = routeData['id'];
   // })
@@ -53,7 +54,7 @@ export class RoomsBooking implements OnInit{
   // the form is created here now you can render on html file.
     this.bookingForm = this.formBuilder.group({
       // below are two method to create new form control, Syntax is different works same
-        roomId: new FormControl({value:'2',disabled:true}),
+        roomId: new FormControl({value:roomId,disabled:true}),
         //guestEmail:['', [Validators.required,Validators.email]],
         //updateOn will listen to value change when we move away from form control
         guestEmail:['',{
@@ -164,7 +165,7 @@ export class RoomsBooking implements OnInit{
     //this.bookingForm.setValue({
     // setvalue will show error because it require all values 
     this.bookingForm.patchValue({
-        roomId: '2',
+        //roomId: '2',
         guestEmail:'user@gmail.com',
         checkinDate:'',
         checkoutDate:'',
