@@ -1,6 +1,6 @@
 import { Component,OnInit, signal, Type } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { exhaustMap, map, mergeMap, Observable, switchMap } from 'rxjs';
 import { ReactiveFormsModule,FormGroup,FormBuilder,FormControl, FormArray, Validators } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NgFor } from '@angular/common';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { BookingServ } from './booking-serv';
 
 @Component({
   selector: 'hinv-rooms-booking',
@@ -36,7 +37,7 @@ export class RoomsBooking implements OnInit{
     return this.bookingForm.get('guests') as FormArray;
   }
   constructor(private route: ActivatedRoute,
-    private formBuilder:FormBuilder,
+    private formBuilder:FormBuilder, private bookingService:BookingServ,
   ){
     this.id$ = this.route.paramMap.pipe(
       map( params =>{return params.get('id')})
@@ -55,7 +56,7 @@ export class RoomsBooking implements OnInit{
         //guestEmail:['', [Validators.required,Validators.email]],
         //updateOn will listen to value change when we move away from form control
         guestEmail:['',{
-          updateOn:'blur',
+          //updateOn:'blur', 
           validators:[Validators.required,Validators.email]
         }],
         checkinDate:[''],
@@ -82,20 +83,31 @@ export class RoomsBooking implements OnInit{
 
     },
     // this will apply updateOn on every form control
-    {updateOn:'blur'}
+    //{updateOn:'blur'}
   );
     this.sendDefaultData()
     // we can listen to value changes by this 
     //  below we wil apply different method to listen to value change
     // by default this is listening to every keypress on formControl
-    this.bookingForm.valueChanges.subscribe((data)=>{
-      console.log(data);
-    })
+    // this.bookingForm.valueChanges.subscribe((data)=>{
+    //   console.log(data);
+    // })
+    // lets use mergemap, switchmap and exhaustmap
+    this.bookingForm.valueChanges.pipe(
+      //mergeMap((data)=>{
+      //switchMap((data)=>{
+        exhaustMap((data)=>{  
+        return this.bookingService.bookRoom(data)
+      })
+    ).subscribe((data)=>{console.log(data)});
   }
   formSubmit(){
     console.log(this.bookingForm.value);
     // .value does not get disabled value here roomId
-    console.log(this.bookingForm.getRawValue())
+    console.log(this.bookingForm.getRawValue());
+    // this.bookingService.bookRoom(this.bookingForm.getRawValue()).subscribe((data)=>{
+    //   console.log(data);
+    // })
   }
   addGuest(){
     this.guests.push(
