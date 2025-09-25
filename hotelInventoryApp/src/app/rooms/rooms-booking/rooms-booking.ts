@@ -14,6 +14,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { NgFor } from '@angular/common';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { BookingServ } from './booking-serv';
+import { customValidator } from './Validators/custom-validator/custom-validator';
 
 @Component({
   selector: 'hinv-rooms-booking',
@@ -59,13 +60,19 @@ export class RoomsBooking implements OnInit{
           //updateOn:'blur', 
           validators:[Validators.required,Validators.email]
         }],
-        checkinDate:[''],
-        checkoutDate:[''],
+        // updateOn:'blur' will help customvalidator.validdate
+        checkinDate:['',{updateOn:'blur',}],
+        checkoutDate:['',{updateOn:'blur',}],
         bookingStatus:[''],
         bookingAmount:[''],
         bookingDate:[''],
         mobileNumber:['',[Validators.required,Validators.pattern('^\\d{10}$')]],
-        guestName:['',[Validators.required,Validators.minLength(3),Validators.maxLength(10)]],
+        guestName:['',
+          [Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(10),
+          customValidator.validateName,
+          customValidator.validateSpecialCharacter('#'),]],
         guestAddress: this.formBuilder.group({
           AddressLine1:['',[Validators.required]],
           AddressLine2:[''],
@@ -81,7 +88,7 @@ export class RoomsBooking implements OnInit{
         })]),
         tnc: new FormControl(false,{validators:[Validators.requiredTrue]})
 
-    },
+    },{validators:customValidator.validateDate}
     // this will apply updateOn on every form control
     //{updateOn:'blur'}
   );

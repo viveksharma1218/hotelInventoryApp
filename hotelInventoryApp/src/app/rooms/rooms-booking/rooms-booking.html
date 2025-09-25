@@ -2,7 +2,7 @@
 <p>{{id$ | async }}</p> -->
 <p><strong>bookingForm values</strong>{{bookingForm.value  | json}}</p>
 <p><strong>pristine</strong>{{bookingForm.pristine}}, <strong>dirty</strong>{{bookingForm.dirty}}</p>
-
+{{bookingForm.errors}}
 
     <form class="example-form"[formGroup]="bookingForm" (ngSubmit)="formSubmit()">
     <div>
@@ -54,7 +54,9 @@
   <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
   <mat-datepicker #picker1></mat-datepicker>
 </mat-form-field>
-
+  @if(bookingForm.hasError('invalidDate')){
+      <mat-error>checkInDate should be less than checkOutDate</mat-error>
+  }
   <mat-form-field class="example-full-width">
     <mat-label>bookingStatus</mat-label>
     <input matInput placeholder="bookingStatus" 
@@ -97,12 +99,19 @@
         @if(bookingForm.get('guestName')?.hasError('required')){
           <mat-error>Guest Name is required</mat-error>
         }
+        @if(bookingForm.get('guestName')?.hasError('invalidChar')){
+          <mat-error>you can not use <strong>#</strong> for name</mat-error>
+        }
         @if(bookingForm.get('guestName')?.hasError('minlength')){
           <mat-error>minimum 3 letters</mat-error>
         }
         @if(bookingForm.get('guestName')?.hasError('maxlength')){
           <mat-error>maximum 10 letters</mat-error>
         }
+        @if(bookingForm.get('guestName')?.hasError('invalidName')){
+          <mat-error>you can not use <strong>test</strong> for name</mat-error>
+        }
+        
   </mat-form-field>
 
   <div formGroupName="guestAddress">
@@ -150,9 +159,9 @@
 
 
   </mat-expansion-panel>
-
 </mat-accordion>
   </div>
+
   <div formArrayName="guests">
   <mat-accordion>
   <mat-expansion-panel hideToggle>
@@ -167,6 +176,7 @@
             @if (bookingForm.get(['guests',i,'guestName'])?.hasError('required')) {
               <mat-error>Guest Name is required</mat-error>
             }
+            
           </mat-form-field>
           <mat-form-field class="example-full-width">
             <mat-label>Guest Age</mat-label>
