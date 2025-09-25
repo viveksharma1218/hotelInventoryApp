@@ -8,6 +8,8 @@ import { Login } from './login/login';
 import { loginGuard } from './guards/login-guard';
 import { roomGuard } from './rooms/guards/room-guard';
 import { bookingGuard } from './rooms/rooms-booking/guards/booking-guard';
+import{Comment} from './comment/comment'
+import { commentGuard } from './comment/guard/comment-guard';
 
 export const routes: Routes = [
     {   path:'rooms', 
@@ -34,7 +36,9 @@ export const routes: Routes = [
         ,canActivate:[loginGuard]
     },
     {path:'login', component:Login},
-
+    {path:'comment', component:Comment,
+        resolve:{comments:commentGuard}
+    },
 
 
     // below two paths must be at the end otherwise paths after these two won't work
