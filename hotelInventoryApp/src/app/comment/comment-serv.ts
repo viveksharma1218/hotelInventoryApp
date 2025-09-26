@@ -11,6 +11,7 @@ export class CommentServ {
 
   getComments(){
     return this.http.get<commentsInt[]>(
+      //'https://jsonplaceholder.typicode.com/comments121212' //this will throw error
       'https://jsonplaceholder.typicode.com/comments',
     )
   }
